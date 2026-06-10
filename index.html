@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ERIO BARBER | Barbería Premium</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+</head>
+
+<body>
+
+<header class="navbar">
+    <a href="#inicio" class="logo">
+        <img src="img/logo.png" alt="Erio Barber Logo" id="main-logo">
+    </a>
+
+    <div class="nav-right">
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#inicio">INICIO</a></li>
+                <li><a href="#servicios">SERVICIOS</a></li>
+                <li><a href="#galeria">GALERÍA</a></li>
+                <li><a href="#ubicacion">UBICACIÓN</a></li>
+            </ul>
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20una%20hora" class="btn-nav" target="_blank" rel="noopener noreferrer">RESERVAR</a>
+        </nav>
+    </div>
+
+    <div class="menu-toggle">
+        <i class='bx bx-menu-alt-right'></i>
+    </div>
+</header>
+
+<section id="inicio" class="hero">
+    <div class="hero-bg-glow"></div>
+
+    <div class="container hero-container">
+        <div class="hero-content hero-animate-left">
+            <span class="badge">⭐ MÁS DE 500 CLIENTES SATISFECHOS</span>
+            <h1>ERIO <span>BARBER</span></h1>
+            <p class="hero-tagline">Fade • Barba • Estilo Profesional</p>
+            
+            <div class="hero-description">
+                <p class="hero-main-text">Tu imagen habla antes que tú. <span>Nosotros la perfeccionamos.</span></p>
+                <p class="hero-sub-text">Especialistas en fades, taper, barba y diseño personalizado.</p>
+            </div>
+
+            <div class="hero-features-list">
+                <div class="feature-item">
+                    <i class='bx bx-check-circle'></i>
+                    <span>Fade Premium & Diseño Personalizado</span>
+                </div>
+                <div class="feature-item">
+                    <i class='bx bx-check-circle'></i>
+                    <span>Barba Profesional con Ritual de Toalla</span>
+                </div>
+                <div class="feature-item">
+                    <i class='bx bx-check-circle'></i>
+                    <span>Atención profesional y personalizada</span>
+                </div>
+            </div>
+
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20una%20hora" class="btn-principal" target="_blank" rel="noopener noreferrer">
+                <i class='bx bxl-whatsapp'></i> RESERVAR AHORA
+            </a>
+        </div>
+
+        <div class="hero-visual hero-animate-right">
+            <div class="hero-image">
+                <video autoplay muted loop playsinline preload="auto" poster="img/hero.jpeg" class="cinematic-video">
+                    <source src="img/hero-video.mp4" type="video/mp4">
+                    Tu navegador no soporta videos.
+                </video>
+                <div class="glass-badge">
+                    <i class='bx bxs-check-shield'></i>
+                    <span>+500 Cortes Realizados</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trust-bar">
+    <div class="container trust-container">
+        <div class="trust-item"><i class='bx bx-check'></i> Más de 500 cortes realizados</div>
+        <div class="trust-item"><i class='bx bx-check'></i> 5 estrellas de valoración</div>
+        <div class="trust-item"><i class='bx bx-check'></i> Atención personalizada</div>
+        <div class="trust-item"><i class='bx bx-check'></i> Reserva rápida por WhatsApp</div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="container stats-container">
+        <div class="stat-item">
+            <h3 class="stat-number" data-target="500">0</h3><span>+</span>
+            <p>Cortes realizados</p>
+        </div>
+        <div class="stat-item">
+            <h3 class="stat-number" data-target="150">0</h3><span>+</span>
+            <p>Clientes frecuentes</p>
+        </div>
+        <div class="stat-item">
+            <h3 class="stat-number" data-target="5" data-decimal="true">0</h3>
+            <p>Valoración promedio</p>
+        </div>
+    </div>
+</section>
+
+<section id="servicios" class="servicios">
+    <div class="section-title scroll-reveal">
+        <small>MENÚ DE EXPERIENCIAS</small>
+        <h2>NUESTROS SERVICIOS</h2>
+    </div>
+
+    <div class="cards scroll-reveal">
+        <div class="card">
+            <div class="card-icon"><i class='bx bx-cut'></i></div>
+            <h3>Corte Premium</h3>
+            <p>Fade, taper, crop, freestyle y más.</p>
+            <span class="price">Desde $15.000</span>
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20un%20Corte%20Premium" class="btn-reserva-card" target="_blank" rel="noopener">Reservar</a>
+        </div>
+
+        <div class="card">
+            <div class="card-icon"><i class='bx bx-male'></i></div>
+            <h3>Barba</h3>
+            <p>Perfilado y diseño profesional.</p>
+            <span class="price">Desde $10.000</span>
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20perfilado%20de%20Barba" class="btn-reserva-card" target="_blank" rel="noopener">Reservar</a>
+        </div>
+
+        <div class="card">
+            <div class="card-icon"><i class='bx bxs-crown'></i></div>
+            <h3>Pack Completo</h3>
+            <p>Corte + barba + acabado premium.</p>
+            <span class="price">Desde $22.000</span>
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20el%20Pack%20Completo" class="btn-reserva-card" target="_blank" rel="noopener">Reservar</a>
+        </div>
+    </div>
+</section>
+
+<section class="horarios scroll-reveal">
+    <div class="container">
+        <div class="horarios-wrapper">
+            <div class="horario-info">
+                <small>DISPONIBILIDAD</small>
+                <h2>HORARIOS DE ATENCIÓN</h2>
+                <div class="dias-grid">
+                    <div class="dia-item">
+                        <span class="dia">Martes a Sábado</span>
+                        <span class="hora">10:00 - 20:00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="horario-cta">
+                <a href="https://wa.me/56991062796" target="_blank" class="btn-principal">RESERVAR POR WHATSAPP</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials scroll-reveal">
+    <div class="section-title">
+        <small>TESTIMONIOS</small>
+        <h2>LO QUE DICEN ELLOS</h2>
+    </div>
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>"Excelente atención y cortes impecables."</p>
+            <span class="client-name">— Matías R., Maipú</span>
+        </div>
+        <div class="testimonial-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>"El mejor fade que me han hecho."</p>
+            <span class="client-name">— Cristóbal G., Ciudad Satélite</span>
+        </div>
+        <div class="testimonial-card">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>"100% recomendado, volveré."</p>
+        </div>
+    </div>
+</section>
+
+<section class="porque-elegir scroll-reveal">
+    <div class="container">
+        <div class="section-title">
+            <small>EXCELENCIA</small>
+            <h2>¿POR QUÉ ELEGIR ERIO BARBER?</h2>
+        </div>
+        <div class="features-grid-premium">
+            <div class="feature-premium-card">
+                <i class='bx bx-user-check'></i>
+                <span>Atención personalizada</span>
+            </div>
+            <div class="feature-premium-card">
+                <i class='bx bx-award'></i>
+                <span>Productos premium</span>
+            </div>
+            <div class="feature-premium-card">
+                <i class='bx bx-trending-up'></i>
+                <span>Cortes modernos</span>
+            </div>
+            <div class="feature-premium-card">
+                <i class='bx bx-building-house'></i>
+                <span>Ambiente profesional</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="galeria" class="galeria">
+    <div class="section-title scroll-reveal">
+        <small>TRABAJOS REALES</small>
+        <h2>GALERÍA</h2>
+    </div>
+
+    <div class="gallery-grid scroll-reveal">
+        <div class="gallery-item"><img src="img/hero.jpeg" alt="Trabajo 1"></div>
+        <div class="gallery-item"><img src="img/hero (2).jpeg" alt="Trabajo 2"></div>
+        <div class="gallery-item"><img src="img/hero (3).jpeg" alt="Trabajo 3"></div>
+        <div class="gallery-item"><img src="img/hero (4).jpeg" alt="Trabajo 4"></div>
+        <div class="gallery-item"><img src="img/hero (5).jpeg" alt="Trabajo 5"></div>
+    </div>
+</section>
+
+<section class="before-after scroll-reveal">
+    <div class="section-title">
+        <small>RESULTADOS</small>
+        <h2>ANTES Y DESPUÉS</h2>
+    </div>
+    <div class="container ba-container">
+        <div class="ba-card">
+            <div class="ba-images">
+                <div class="ba-item">
+                    <img src="img/hero (4).jpeg" alt="Antes">
+                    <span class="ba-label">ANTES</span>
+                </div>
+                <div class="ba-item">
+                    <img src="img/hero (5).jpeg" alt="Después">
+                    <span class="ba-label">DESPUÉS</span>
+                </div>
+            </div>
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20un%20resultado%20como%20el%20del%20antes%20y%20despues" class="btn-principal">QUIERO ESTE RESULTADO</a>
+        </div>
+    </div>
+</section>
+
+<section id="ubicacion" class="ubicacion">
+    <div class="section-title scroll-reveal">
+        <small>DÓNDE ESTAMOS</small>
+        <h2>UBICACIÓN</h2>
+    </div>
+    <div class="location-card scroll-reveal">
+        <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.356249969016!2d-70.7594511!3d-33.5181146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c33211516757%3A0x6734c56e30b35522!2sAv.%20Segunda%20Transversal%202901%2C%20Maip%C3%BA%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1717980000000!5m2!1ses!2scl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="location-info">
+            <div class="info-group">
+                <h3>VEN A VISITARNOS</h3>
+                <p><i class='bx bx-map'></i> Av. Segunda Transversal 2901, Maipú</p>
+                <p><i class='bx bx-time'></i> Mar - Sáb: 10:00 - 20:00</p>
+            </div>
+            <div class="info-actions">
+                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Segunda+Transversal+2901,+Maipu" target="_blank" class="btn-map"><i class='bx bx-navigation'></i> ABRIR EN GOOGLE MAPS</a>
+                <a href="https://wa.me/56991062796" target="_blank" class="btn-wsp-info"><i class='bx bxl-whatsapp'></i> RESERVAR POR WHATSAPP</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section scroll-reveal">
+    <div class="container">
+        <div class="section-title">
+            <small>DUDAS COMUNES</small>
+            <h2>PREGUNTAS FRECUENTES</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Necesito reservar?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Sí, para garantizar tu espacio y brindarte la mejor atención posible, trabajamos principalmente bajo reserva previa a través de WhatsApp.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Aceptan efectivo o transferencia?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Aceptamos ambos métodos de pago: efectivo y transferencia electrónica para tu mayor comodidad.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Cuánto dura un corte?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Dependiendo del servicio, un corte premium o diseño personalizado suele tomar entre 45 y 60 minutos.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Dónde están ubicados?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Nos encontramos en Av. Segunda Transversal 2901, Maipú. Puedes ver el mapa interactivo en la sección de ubicación.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="instagram-cta scroll-reveal">
+    <div class="container insta-container">
+        <i class='bx bxl-instagram-alt' id="big-insta-icon"></i>
+        <h3>SÍGUENOS Y DESCUBRE NUESTROS ÚLTIMOS TRABAJOS</h3>
+        <div class="insta-stats">
+            <div class="stat-count"><span>1.2k</span> Seguidores</div>
+            <div class="stat-count"><span>500+</span> Publicaciones</div>
+        </div>
+        <div class="insta-photos">
+            <div class="insta-photo-wrapper"><img src="img/hero (2).jpeg" alt="Instagram 1"></div>
+            <div class="insta-photo-wrapper"><img src="img/hero (3).jpeg" alt="Instagram 2"></div>
+            <div class="insta-photo-wrapper"><img src="img/hero (5).jpeg" alt="Instagram 3"></div>
+        </div>
+        <p>Únete a nuestra comunidad exclusiva en Instagram.</p>
+        <a href="https://www.instagram.com/eriobarber_24/" target="_blank" class="btn-instagram">VER MÁS TRABAJOS</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-top-line"></div>
+    <div class="footer-content">
+        <div class="footer-logo-wrapper"><img src="img/logo.png" alt="Erio Barber Logo" class="footer-logo"></div>
+        <p>Estilo • Precisión • Actitud</p>
+        <div class="socials">
+            <a href="https://www.instagram.com/eriobarber_24/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram'></i></a>
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20una%20hora" target="_blank" rel="noopener noreferrer"><i class='bx bxl-whatsapp'></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Erio Barber - Todos los derechos reservados.
+    </div>
+</footer>
+<script src="script.js"></script>
+<a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20una%20hora" class="floating-wsp" target="_blank" rel="noopener noreferrer">
+    <i class='bx bxl-whatsapp'></i>
+</a>
+</body>
+</html>
