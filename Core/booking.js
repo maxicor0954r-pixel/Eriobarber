@@ -137,6 +137,9 @@ export function initBooking() {
                     ...bookingData,
                     createdAt: serverTimestamp()
                 });
+                
+                await notifyBarberByEmail(bookingData);
+                
                 showFeedback("¡Reserva solicitada con éxito! Te contactaremos para confirmar.", "success");
             } catch (error) {
                 console.error("Error Firebase:", error);
@@ -149,4 +152,10 @@ export function initBooking() {
             updateAvailableTimes();
         });
     }
+}
+
+async function notifyBarberByEmail(bookingData) {
+    // Placeholder para EmailJS o Firebase Functions
+    // Destinatario: correo_del_barbero@example.com
+    console.log("Notificación preparada para el barbero:", bookingData);
 }

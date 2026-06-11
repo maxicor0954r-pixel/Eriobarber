@@ -1,5 +1,40 @@
 // c:\Users\User\Downloads\eriobarber\modules\animations.js
 
+function forceStatsCounter() {
+    const stats = document.querySelectorAll(".stat-number");
+    if (!stats.length) return;
+
+    stats.forEach(stat => {
+        const target = parseFloat(stat.getAttribute("data-target")?.toString().replace(/\./g, '')) || 0;
+        const isDecimal = stat.getAttribute("data-decimal") === "true";
+
+        if (!target) return;
+
+        let count = 0;
+        const duration = 1200;
+        const start = performance.now();
+
+        function update(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const value = target * progress;
+
+            if (isDecimal) {
+                stat.textContent = value.toFixed(1);
+            } else {
+                stat.textContent = Math.floor(value);
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                stat.textContent = isDecimal ? target.toFixed(1) : target;
+            }
+        }
+
+        requestAnimationFrame(update);
+    });
+}
+
 export function initAnimations() {
     // Animación de Contadores (Stats)
     const stats = document.querySelectorAll(".stat-number");
@@ -43,6 +78,9 @@ export function initAnimations() {
         } else {
             animateStats();
         }
+
+        // Forzar ejecución inmediata como respaldo
+        forceStatsCounter();
 
         setTimeout(() => {
             if (!hasAnimated) animateStats();
