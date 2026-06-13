@@ -70,6 +70,11 @@ async function updateAvailableTimes() {
 }
 
 export function initBooking() {
+    // Inicializar EmailJS con la clave pública proporcionada
+    emailjs.init({
+        publicKey: "W81HytrOQRHZQ1ehG",
+    });
+
     setTodayAsDefaultDate();
     updateAvailableTimes();
 
@@ -127,6 +132,17 @@ export function initBooking() {
                     ...bookingData,
                     createdAt: serverTimestamp()
                 });
+
+                // Enviar notificación por correo usando EmailJS
+                await emailjs.send("service_uayc5qk", "owqa7a5", {
+                    name: bookingData.name,
+                    phone: bookingData.phone,
+                    service: bookingData.service,
+                    barber: bookingData.barber,
+                    date: bookingData.date,
+                    time: bookingData.time
+                });
+
                 showFeedback("¡Reserva solicitada con éxito!", "success");
             } catch (error) {
                 console.error("Error Firebase:", error);

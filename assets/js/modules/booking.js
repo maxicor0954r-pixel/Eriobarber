@@ -77,6 +77,11 @@ async function updateAvailableTimes() {
 }
 
 export function initBooking() {
+    // Inicializar EmailJS con la clave pública
+    emailjs.init({
+        publicKey: "W81HytrOQRHZQ1ehG",
+    });
+
     setTodayAsDefaultDate();
     updateAvailableTimes();
 
@@ -157,30 +162,16 @@ export function initBooking() {
 
 // Función para enviar correo de notificación usando EmailJS
 async function sendEmailNotification(data) {
-    // Para usar esto, crea una cuenta gratuita en https://www.emailjs.com/
-    // y reemplaza estos 3 valores con los que te entregue la plataforma:
-    const serviceID = 'TU_SERVICE_ID';
-    const templateID = 'TU_TEMPLATE_ID';
-    const publicKey = 'TU_PUBLIC_KEY'; // A veces llamado User ID
-
     try {
-        await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                service_id: serviceID,
-                template_id: templateID,
-                user_id: publicKey,
-                template_params: {
-                    nombre: data.name,
-                    telefono: data.phone,
-                    servicio: data.service,
-                    fecha: data.date,
-                    hora: data.time
-                }
-            })
+        await emailjs.send("service_uayc5qk", "owqa7a5", {
+            name: data.name,
+            phone: data.phone,
+            service: data.service,
+            barber: data.barber,
+            date: data.date,
+            time: data.time
         });
-        console.log("Correo de notificación enviado.");
+        console.log("Correo de notificación enviado con éxito.");
     } catch (error) {
         console.error("Error al enviar el correo:", error);
     }
