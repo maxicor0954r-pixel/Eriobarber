@@ -20,7 +20,7 @@ const bookingsCol = collection(db, "bookings");
 // EmailJS - notificación por correo al recibir una reserva
 const EMAILJS_PUBLIC_KEY = "W81HytrOQRHZQ1ehG";
 const EMAILJS_SERVICE_ID = "service_uayc5qk";
-const EMAILJS_TEMPLATE_ID = "owqa7a5";
+const EMAILJS_TEMPLATE_ID = "template_44bj455";
 
 function initEmailJS() {
     if (!window.emailjs) {
