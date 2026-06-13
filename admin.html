@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Reservas | Erio Barber</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+<body>
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo">💈</div>
+      <h1>ERIO BARBER</h1>
+      <p>Panel privado de reservas</p>
+      <input type="password" id="admin-password" placeholder="Contraseña de acceso" autocomplete="current-password" />
+      <button id="login-btn">Entrar al panel</button>
+      <span id="login-error"></span>
+    </div>
+  </div>
+
+  <main id="admin-panel" class="admin-panel hidden">
+    <header class="admin-header">
+      <div>
+        <span class="eyebrow">Panel administrativo</span>
+        <h1>Reservas Erio Barber</h1>
+        <p>Revisa, contacta y elimina reservas directamente desde Firebase.</p>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="secondary-btn"><i class='bx bx-home'></i> Ver web</a>
+        <button id="logout-btn" class="danger-outline"><i class='bx bx-log-out'></i> Salir</button>
+      </div>
+    </header>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span>Total reservas</span>
+        <strong id="total-reservas">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Reservas de hoy</span>
+        <strong id="reservas-hoy">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Fecha seleccionada</span>
+        <strong id="fecha-seleccionada">Todas</strong>
+      </article>
+    </section>
+
+    <section class="toolbar">
+      <div class="filter-group">
+        <label for="date-filter">Filtrar por fecha</label>
+        <input type="date" id="date-filter" />
+      </div>
+      <button id="today-btn" class="secondary-btn"><i class='bx bx-calendar-check'></i> Hoy</button>
+      <button id="clear-filter-btn" class="secondary-btn"><i class='bx bx-refresh'></i> Ver todas</button>
+      <button id="reload-btn" class="primary-btn"><i class='bx bx-sync'></i> Actualizar</button>
+    </section>
+
+    <section class="table-card">
+      <div class="table-head">
+        <h2>Listado de reservas</h2>
+        <span id="loading-state">Cargando...</span>
+      </div>
+
+      <div id="empty-state" class="empty-state hidden">
+        <i class='bx bx-calendar-x'></i>
+        <h3>No hay reservas para mostrar</h3>
+        <p>Cuando alguien reserve, aparecerá aquí automáticamente.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>Servicio</th>
+              <th>Barbero</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="reservas-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/admin.js"></script>
+</body>
+</html>
