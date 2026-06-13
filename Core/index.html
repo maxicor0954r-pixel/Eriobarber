@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="style.css">
 
+<!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
 
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -228,12 +229,14 @@
                 </select>
             </div>
             <div class="form-row">
-                <div class="form-group">
-                    <label for="booking-date">Fecha</label>
-                    <input type="date" id="booking-date" required>
+                <div class="form-group date-field-container">
+                    <label for="booking-date"><i class='bx bx-calendar'></i> Fecha</label>
+                    <input type="text" id="booking-date" name="booking-date" readonly placeholder="Selecciona una fecha" required autocomplete="off">
+                    <!-- Calendario Custom -->
+                    <div id="calendar" class="calendar hidden"></div>
                 </div>
                 <div class="form-group">
-                    <label for="booking-time">Hora</label>
+                    <label for="booking-time"><i class='bx bx-time'></i> Hora</label>
                     <select id="booking-time" required>
                         <option value="">Selecciona una hora</option>
                     </select>
@@ -343,18 +346,106 @@
     </div>
     <div class="location-card scroll-reveal">
         <div class="map-wrapper">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.356249969016!2d-70.7594511!3d-33.5181146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c33211516757%3A0x6734c56e30b35522!2sAv.%20Segunda%20Transversal%202901%2C%20Maip%C3%BA%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1717980000000!5m2!1ses!2scl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.356249969016!2d-70.7594511!3d-33.5181146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c33211516757%3A0x6734c56e30b35522!2sAv.%20Segunda%20Transversal%202901%2C%20Maip%C3%BA%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1717980000000!5m2!1ses!2scl" allowfullscreen="" loading="lazy"></iframe>
         </div>
         <div class="location-info">
-            <div class="info-group">
-                <h3>VEN A VISITARNOS</h3>
-                <p><i class='bx bx-map'></i> Av. Segunda Transversal 2901, Maipú</p>
-                <p><i class='bx bx-time'></i> Lun - Sáb: 10:30 - 21:30</p>
-                <p><i class='bx bx-time'></i> Dom: 13:00 - 18:00</p>
+            <h3>NUESTRO ESTUDIO</h3>
+            <div class="info-details">
+                <p><i class='bx bxs-map-pin'></i> Av. Segunda Transversal 2901, Maipú</p>
+                <p><i class='bx bxs-time-five'></i> Lun - Sáb: 10:30 - 21:30</p>
+                <p><i class='bx bxs-calendar-star'></i> Dom: 13:00 - 18:00</p>
             </div>
             <div class="info-actions">
-                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Segunda+Transversal+2901,+Maipu" target="_blank" class="btn-map"><i class='bx bx-navigation'></i> ABRIR EN GOOGLE MAPS</a>
-                <a href="https://wa.me/56991062796" target="_blank" class="btn-wsp-info"><i class='bx bxl-whatsapp'></i> RESERVAR POR WHATSAPP</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Segunda+Transversal+2901,+Maipu" target="_blank" class="btn-map-action">
+                    <i class='bx bx-navigation'></i> CÓMO LLEGAR
+                </a>
+                <a href="https://wa.me/56991062796" target="_blank" class="btn-wsp-action">
+                    <i class='bx bxl-whatsapp'></i> CONSULTAS
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section scroll-reveal">
+    <div class="container">
+        <div class="section-title">
+            <small>DUDAS COMUNES</small>
+            <h2>PREGUNTAS FRECUENTES</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Necesito reservar?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Sí, para garantizar tu espacio y brindarte la mejor atención posible, trabajamos principalmente bajo reserva previa a través de WhatsApp.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Aceptan efectivo o transferencia?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Aceptamos ambos métodos de pago: efectivo y transferencia electrónica para tu mayor comodidad.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Cuánto dura un corte?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Dependiendo del servicio, un corte premium o diseño personalizado suele tomar entre 45 y 60 minutos.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>¿Dónde están ubicados?</h3>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+                <div class="faq-answer"><p>Nos encontramos en Av. Segunda Transversal 2901, Maipú. Puedes ver el mapa interactivo en la sección de ubicación.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="instagram-cta scroll-reveal">
+    <div class="container insta-container">
+        <i class='bx bxl-instagram-alt' id="big-insta-icon"></i>
+        <h3>SÍGUENOS Y DESCUBRE NUESTROS ÚLTIMOS TRABAJOS</h3>
+        <div class="insta-stats">
+            <div class="stat-count"><span>1.2k</span> Seguidores</div>
+            <div class="stat-count"><span>500+</span> Publicaciones</div>
+        </div>
+        <div class="insta-photos">
+            <div class="insta-photo-wrapper"><img src="img/hero (2).jpeg" alt="Instagram 1"></div>
+            <div class="insta-photo-wrapper"><img src="img/hero (3).jpeg" alt="Instagram 2"></div>
+            <div class="insta-photo-wrapper"><img src="img/hero (5).jpeg" alt="Instagram 3"></div>
+        </div>
+        <p>Únete a nuestra comunidad exclusiva en Instagram.</p>
+        <a href="https://www.instagram.com/eriobarber_24/" target="_blank" class="btn-instagram">VER MÁS TRABAJOS</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-top-line"></div>
+    <div class="footer-content">
+        <div class="footer-logo-wrapper"><img src="img/logo.png" alt="Erio Barber Logo" class="footer-logo"></div>
+        <p>Estilo • Precisión • Actitud</p>
+        <div class="socials">
+            <a href="https://www.instagram.com/eriobarber_24/" target="_blank" rel="noopener noreferrer"><i class='bx bxl-instagram'></i></a>
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20una%20hora" target="_blank" rel="noopener noreferrer"><i class='bx bxl-whatsapp'></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Erio Barber - Todos los derechos reservados.
+    </div>
+</footer>
+<script src="script.js"></script>
+<a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20una%20hora" class="floating-wsp" target="_blank" rel="noopener noreferrer">
+    <i class='bx bxl-whatsapp'></i>
+</a>
+</body>
+</html>
+                </div>
             </div>
         </div>
     </div>

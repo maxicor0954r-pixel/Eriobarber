@@ -19,24 +19,122 @@ const db = getFirestore(app);
 const bookingsCol = collection(db, "bookings");
 
 const bookingForm = document.getElementById("booking-form");
-const bookingDateInput = document.getElementById("booking-date");
-const bookingTimeSelect = document.getElementById("booking-time");
+const bookingDateInput = document.getElementById("booking-date"); // Ahora es input type="text" readonly
+const bookingTimeSelect = document.getElementById("booking-time"); // Mantener este ID
 const bookingPhoneInput = document.getElementById("booking-phone");
+const calendarEl = document.getElementById("calendar");
+
+let currentDate = new Date();
+let selectedDateObj = null;
+
+const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const days = ["L", "M", "M", "J", "V", "S", "D"];
+
+function renderCalendar() {
+    if (!calendarEl) return;
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    let startDay = firstDay.getDay();
+    startDay = startDay === 0 ? 6 : startDay - 1; // Ajuste para Lunes inicio
+
+    calendarEl.innerHTML = `
+        <div class="calendar-header">
+            <button type="button" id="prevMonth">‹</button>
+            <strong>${months[month]} ${year}</strong>
+            <button type="button" id="nextMonth">›</button>
+        </div>
+        <div class="calendar-grid">
+            ${days.map(d => `<div class="day-name">${d}</div>`).join("")}
+        </div>
+    `;
+
+    const grid = calendarEl.querySelector(".calendar-grid");
+    for (let i = 0; i < startDay; i++) grid.innerHTML += `<div></div>`;
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    for (let d = 1; d <= lastDay.getDate(); d++) {
+        const date = new Date(year, month, d);
+        const isDisabled = date < today;
+        const isSelected = selectedDateObj && date.toDateString() === selectedDateObj.toDateString();
+        
+        const dayDiv = document.createElement("div");
+        dayDiv.className = `day ${isDisabled ? 'disabled' : ''} ${isSelected ? 'selected' : ''}`;
+        dayDiv.textContent = d;
+        
+        if (!isDisabled) {
+            dayDiv.onclick = () => {
+                selectedDateObj = date;
+                const day = String(d).padStart(2, '0');
+                const monthNum = String(month + 1).padStart(2, '0');
+                
+                // Lo que ve el usuario
+                const displayDate = `${day}/${monthNum}/${year}`;
+                // Lo que usa Firebase
+                const firebaseDate = `${year}-${monthNum}-${day}`;
+                
+                bookingDateInput.setAttribute('data-firebase-date', firebaseDate);
+                bookingDateInput.value = displayDate;
+                
+                calendarEl.classList.add("hidden");
+                updateAvailableTimes();
+                
+                // Revertimos el value al formato Firebase justo después de que updateAvailableTimes lo lea 
+                // o simplemente nos aseguramos que updateAvailableTimes reciba el formato correcto.
+            };
+        }
+        grid.appendChild(dayDiv);
+    }
+
+    document.getElementById("prevMonth").onclick = (e) => {
+        e.stopPropagation();
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    };
+    document.getElementById("nextMonth").onclick = (e) => {
+        e.stopPropagation();
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    };
+}
 
 function setTodayAsDefaultDate() {
     if (!bookingDateInput) return;
-    const today = getTodayString();
-    bookingDateInput.value = today;
-    bookingDateInput.min = today;
+    
+    bookingDateInput.addEventListener("click", (e) => {
+        e.stopPropagation();
+        calendarEl.classList.toggle("hidden");
+        renderCalendar();
+    });
+
+    document.addEventListener("click", (e) => {
+        if (calendarEl && !calendarEl.contains(e.target)) {
+            calendarEl.classList.add("hidden");
+        }
+    });
+
+    const todayFirebaseFormat = getTodayString(); // utils.js devuelve YYYY-MM-DD
+    bookingDateInput.setAttribute('data-firebase-date', todayFirebaseFormat);
+    
+    // Para mostrar al usuario en formato DD-MM-YYYY
+    const [y, m, d] = todayFirebaseFormat.split('-');
+    bookingDateInput.value = `${d}/${m}/${y}`;
 }
 
 async function updateAvailableTimes() {
     if (!bookingTimeSelect || !bookingDateInput) return;
     
-    const selectedDate = bookingDateInput.value;
+    // Obtener la fecha en formato YYYY-MM-DD desde el atributo data-firebase-date
+    // Esto asegura que siempre se use el formato correcto para Firebase
+    const selectedDate = bookingDateInput.getAttribute('data-firebase-date');
+
     if (!selectedDate) return;
 
-    const dateObj = new Date(selectedDate + "T00:00:00");
+    // Validar formato para el constructor de Date
+    const dateObj = new Date(selectedDate + "T12:00:00");
     const isSunday = dateObj.getDay() === 0;
     const todayStr = getTodayString();
     
@@ -101,7 +199,7 @@ export function initBooking() {
                 phone: document.getElementById("booking-phone").value,
                 service: document.getElementById("booking-service").value,
                 barber: document.getElementById("booking-barber").value,
-                date: bookingDateInput.value,
+                date: bookingDateInput.getAttribute('data-firebase-date'), // Usar el formato YYYY-MM-DD
                 time: bookingTimeSelect.value,
             };
 
@@ -117,7 +215,7 @@ export function initBooking() {
                 return;
             }
 
-            if (bookingData.date < getTodayString()) {
+            if (bookingData.date < getTodayString()) { // Comparar con el formato YYYY-MM-DD
                 showFeedback("Selecciona una fecha válida. Puedes reservar para hoy o para días futuros.", "error");
                 return;
             }
@@ -138,7 +236,7 @@ export function initBooking() {
                     createdAt: serverTimestamp()
                 });
                 
-                await notifyBarberByEmail(bookingData);
+                console.log("Reserva guardada en base de datos.");
                 
                 showFeedback("¡Reserva solicitada con éxito! Te contactaremos para confirmar.", "success");
             } catch (error) {
@@ -149,13 +247,13 @@ export function initBooking() {
 
             bookingForm.reset();
             setTodayAsDefaultDate();
+            // Después de resetear el formulario, el input de fecha puede perder su valor.
+            // Aseguramos que el valor de visualización y el data-attribute se restablezcan.
+            const todayFirebaseFormat = getTodayString();
+            bookingDateInput.setAttribute('data-firebase-date', todayFirebaseFormat);
+            const [y, m, d] = todayFirebaseFormat.split('-');
+            bookingDateInput.value = `${d}-${m}-${y}`;
             updateAvailableTimes();
         });
     }
-}
-
-async function notifyBarberByEmail(bookingData) {
-    // Placeholder para EmailJS o Firebase Functions
-    // Destinatario: correo_del_barbero@example.com
-    console.log("Notificación preparada para el barbero:", bookingData);
 }

@@ -3,3 +3,266 @@
     --primary: #990000;
     --accent: #ff0000;
 /* ... resto del archivo ... */
+
+
+/* =============================
+   FIX UBICACIÓN PREMIUM
+   Reemplaza el iframe gigante por una card moderna.
+   ============================= */
+
+.ubicacion-premium {
+    position: relative;
+    padding: 110px 20px;
+    overflow: hidden;
+}
+
+.ubicacion-premium::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -160px;
+    top: 120px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.18), transparent 68%);
+    pointer-events: none;
+}
+
+.ubicacion-premium .section-title {
+    text-align: center;
+    margin-bottom: 42px;
+}
+
+.ubicacion-premium .section-title p {
+    color: rgba(255, 255, 255, 0.68);
+    margin-top: 10px;
+}
+
+.location-premium-card {
+    width: min(1080px, 94%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 26px;
+    padding: 22px;
+    border-radius: 30px;
+    background:
+        linear-gradient(145deg, rgba(28, 28, 28, 0.96), rgba(7, 7, 7, 0.98)),
+        radial-gradient(circle at top left, rgba(255, 0, 0, 0.18), transparent 42%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 35px 95px rgba(0, 0, 0, 0.62);
+}
+
+.location-visual-card {
+    position: relative;
+    min-height: 420px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.location-photo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transform: scale(1.02);
+    filter: saturate(0.95) contrast(1.08) brightness(0.76);
+}
+
+.location-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.72)),
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.20), transparent 36%);
+}
+
+.location-pin-card {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 18px;
+    background: rgba(10, 10, 10, 0.76);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.location-pin-card i {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ff0000, #990000);
+    color: #fff;
+    font-size: 26px;
+    box-shadow: 0 12px 30px rgba(255, 0, 0, 0.24);
+}
+
+.location-pin-card strong {
+    display: block;
+    color: #fff;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+}
+
+.location-pin-card span {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.70);
+    font-size: 0.88rem;
+}
+
+.location-details-card {
+    padding: 34px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.location-badge {
+    width: fit-content;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 0, 0, 0.12);
+    color: #ff3b3b;
+    border: 1px solid rgba(255, 0, 0, 0.22);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.location-details-card h3 {
+    margin: 18px 0 12px;
+    color: #fff;
+    font-size: clamp(1.8rem, 3vw, 2.65rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+}
+
+.location-description {
+    color: rgba(255, 255, 255, 0.66);
+    line-height: 1.75;
+    margin-bottom: 24px;
+}
+
+.location-info-list {
+    display: grid;
+    gap: 13px;
+    margin-bottom: 28px;
+}
+
+.location-info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.location-info-item i {
+    color: #ff2525;
+    font-size: 22px;
+}
+
+.location-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.btn-location {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+
+.btn-location:hover {
+    transform: translateY(-2px);
+}
+
+.btn-location-map {
+    background: linear-gradient(135deg, #ff0000, #990000);
+    color: #fff;
+    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.22);
+}
+
+.btn-location-wsp {
+    background: rgba(255, 255, 255, 0.07);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.btn-location-wsp:hover {
+    background: rgba(37, 211, 102, 0.16);
+    border-color: rgba(37, 211, 102, 0.34);
+}
+
+@media (max-width: 860px) {
+    .ubicacion-premium {
+        padding: 80px 14px;
+    }
+
+    .location-premium-card {
+        width: min(520px, 96%);
+        grid-template-columns: 1fr;
+        padding: 14px;
+        border-radius: 24px;
+    }
+
+    .location-visual-card {
+        min-height: 280px;
+        border-radius: 20px;
+    }
+
+    .location-details-card {
+        padding: 24px 18px;
+        border-radius: 20px;
+    }
+
+    .location-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    .location-pin-card {
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        padding: 12px;
+    }
+
+    .location-pin-card i {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+        font-size: 23px;
+    }
+
+    .location-info-item {
+        align-items: flex-start;
+    }
+}

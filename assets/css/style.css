@@ -686,42 +686,46 @@ body{
 }
 
 .booking-form {
-    background: var(--glass);
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
+    background: linear-gradient(145deg, rgba(25, 25, 25, 0.98), rgba(10, 10, 10, 0.98));
+    padding: 45px 30px;
+    border-radius: 24px;
+    border: 1px solid rgba(153, 0, 0, 0.3);
     text-align: left;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 0.8rem;
     color: var(--primary);
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
 .booking-form input,
 .booking-form select {
     width: 100%;
-    padding: 15px;
-    background: #1a1111; /* Fondo más oscuro para selects */
-    border: 1px solid rgba(255,255,255,0.15); /* Borde ligeramente diferente */
-    border-radius: 8px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
     color: white;
-    font-family: inherit;
+    font-size: 16px;
     transition: 0.3s;
-    /* Para personalizar el select */
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     cursor: pointer;
-    padding-right: 45px; /* Espacio para la flecha personalizada */
+}
+
+/* Icono de calendario visible */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
 }
 
 /* Estilo para las opciones del select */
@@ -732,23 +736,44 @@ body{
 
 /* Flecha personalizada para el select */
 .form-group select {
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.6-6.4H18.9c-5%200-9.3%201.8-12.9%205.4-3.6%203.6-5.4%207.8-5.4%2012.9%200%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.9%205.4s9.3-1.8%2012.9-5.4l128-127.9c3.6-3.6%205.4-7.8%205.4-12.9%200-5-1.8-9.3-5.4-12.9z%22%2F%3E%3C%2Fsvg%3E');
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23990000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 15px center;
-    background-size: 12px;
+    background-size: 18px;
 }
 
 .booking-form input:focus, 
 .booking-form select:focus {
     border-color: var(--primary);
     outline: none;
-    background: rgba(255,255,255,0.08); /* Ligeramente más claro al enfocar */
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .form-row { /* Renombrado de form-grid a form-row */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+}
+
+/* Estilos adicionales para Flatpickr en assets */
+.flatpickr-calendar {
+    background: #121212 !important;
+    border: 1px solid rgba(153, 0, 0, 0.4) !important;
+    border-radius: 12px !important;
+}
+.flatpickr-day.selected {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+.flatpickr-day.today {
+    border-color: var(--primary) !important;
+}
+.flatpickr-calendar.arrowTop:after, .flatpickr-calendar.arrowTop:before {
+    border-bottom-color: #121212 !important;
+}
+.flatpickr-input[readonly] {
+    background-color: #121212 !important;
+    cursor: pointer;
 }
 
 .form-feedback {
