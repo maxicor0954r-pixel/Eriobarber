@@ -15,271 +15,6 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-<style>
-
-/* =============================
-   FIX UBICACIÓN PREMIUM
-   Reemplaza el iframe gigante por una card moderna.
-   ============================= */
-
-.ubicacion-premium {
-    position: relative;
-    padding: 110px 20px;
-    overflow: hidden;
-}
-
-.ubicacion-premium::before {
-    content: "";
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    right: -160px;
-    top: 120px;
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.18), transparent 68%);
-    pointer-events: none;
-}
-
-.ubicacion-premium .section-title {
-    text-align: center;
-    margin-bottom: 42px;
-}
-
-.ubicacion-premium .section-title p {
-    color: rgba(255, 255, 255, 0.68);
-    margin-top: 10px;
-}
-
-.location-premium-card {
-    width: min(1080px, 94%);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 26px;
-    padding: 22px;
-    border-radius: 30px;
-    background:
-        linear-gradient(145deg, rgba(28, 28, 28, 0.96), rgba(7, 7, 7, 0.98)),
-        radial-gradient(circle at top left, rgba(255, 0, 0, 0.18), transparent 42%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 35px 95px rgba(0, 0, 0, 0.62);
-}
-
-.location-visual-card {
-    position: relative;
-    min-height: 420px;
-    border-radius: 24px;
-    overflow: hidden;
-    background: #111;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.location-photo {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    transform: scale(1.02);
-    filter: saturate(0.95) contrast(1.08) brightness(0.76);
-}
-
-.location-photo-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.72)),
-        radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.20), transparent 36%);
-}
-
-.location-pin-card {
-    position: absolute;
-    left: 22px;
-    right: 22px;
-    bottom: 22px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px;
-    border-radius: 18px;
-    background: rgba(10, 10, 10, 0.76);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-
-.location-pin-card i {
-    width: 48px;
-    height: 48px;
-    display: grid;
-    place-items: center;
-    flex: 0 0 48px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #ff0000, #990000);
-    color: #fff;
-    font-size: 26px;
-    box-shadow: 0 12px 30px rgba(255, 0, 0, 0.24);
-}
-
-.location-pin-card strong {
-    display: block;
-    color: #fff;
-    font-size: 0.95rem;
-    letter-spacing: 0.08em;
-}
-
-.location-pin-card span {
-    display: block;
-    margin-top: 4px;
-    color: rgba(255, 255, 255, 0.70);
-    font-size: 0.88rem;
-}
-
-.location-details-card {
-    padding: 34px;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.location-badge {
-    width: fit-content;
-    padding: 8px 12px;
-    border-radius: 999px;
-    background: rgba(255, 0, 0, 0.12);
-    color: #ff3b3b;
-    border: 1px solid rgba(255, 0, 0, 0.22);
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-}
-
-.location-details-card h3 {
-    margin: 18px 0 12px;
-    color: #fff;
-    font-size: clamp(1.8rem, 3vw, 2.65rem);
-    line-height: 1.05;
-    text-transform: uppercase;
-}
-
-.location-description {
-    color: rgba(255, 255, 255, 0.66);
-    line-height: 1.75;
-    margin-bottom: 24px;
-}
-
-.location-info-list {
-    display: grid;
-    gap: 13px;
-    margin-bottom: 28px;
-}
-
-.location-info-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 14px;
-    border-radius: 16px;
-    background: rgba(0, 0, 0, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    color: rgba(255, 255, 255, 0.86);
-}
-
-.location-info-item i {
-    color: #ff2525;
-    font-size: 22px;
-}
-
-.location-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.btn-location {
-    min-height: 52px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    padding: 14px 16px;
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
-}
-
-.btn-location:hover {
-    transform: translateY(-2px);
-}
-
-.btn-location-map {
-    background: linear-gradient(135deg, #ff0000, #990000);
-    color: #fff;
-    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.22);
-}
-
-.btn-location-wsp {
-    background: rgba(255, 255, 255, 0.07);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.10);
-}
-
-.btn-location-wsp:hover {
-    background: rgba(37, 211, 102, 0.16);
-    border-color: rgba(37, 211, 102, 0.34);
-}
-
-@media (max-width: 860px) {
-    .ubicacion-premium {
-        padding: 80px 14px;
-    }
-
-    .location-premium-card {
-        width: min(520px, 96%);
-        grid-template-columns: 1fr;
-        padding: 14px;
-        border-radius: 24px;
-    }
-
-    .location-visual-card {
-        min-height: 280px;
-        border-radius: 20px;
-    }
-
-    .location-details-card {
-        padding: 24px 18px;
-        border-radius: 20px;
-    }
-
-    .location-actions {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 420px) {
-    .location-pin-card {
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
-        padding: 12px;
-    }
-
-    .location-pin-card i {
-        width: 42px;
-        height: 42px;
-        flex-basis: 42px;
-        font-size: 23px;
-    }
-
-    .location-info-item {
-        align-items: flex-start;
-    }
-}
-
-</style>
 </head>
 
 <body>
@@ -600,57 +335,25 @@
     </div>
 </section>
 
-<section id="ubicacion" class="ubicacion ubicacion-premium">
+<section id="ubicacion" class="ubicacion">
     <div class="section-title scroll-reveal">
         <small>DÓNDE ESTAMOS</small>
         <h2>UBICACIÓN</h2>
-        <p>Encuéntranos fácilmente y reserva tu hora en segundos.</p>
     </div>
-
-    <div class="location-premium-card scroll-reveal">
-        <div class="location-visual-card">
-            <img src="img/hero-barbero.jpg" alt="Interior de Erio Barber" class="location-photo">
-            <div class="location-photo-overlay"></div>
-            <div class="location-pin-card">
-                <i class='bx bxs-map'></i>
-                <div>
-                    <strong>ERIO BARBER</strong>
-                    <span>Maipú, Región Metropolitana</span>
-                </div>
-            </div>
+    <div class="location-card scroll-reveal">
+        <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.356249969016!2d-70.7594511!3d-33.5181146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c33211516757%3A0x6734c56e30b35522!2sAv.%20Segunda%20Transversal%202901%2C%20Maip%C3%BA%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1717980000000!5m2!1ses!2scl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
-
-        <div class="location-details-card">
-            <span class="location-badge">VISÍTANOS</span>
-            <h3>Av. Segunda Transversal 2901</h3>
-            <p class="location-description">
-                Barbería premium ubicada en Maipú. Agenda tu hora por WhatsApp o abre la ruta directamente en Google Maps.
-            </p>
-
-            <div class="location-info-list">
-                <div class="location-info-item">
-                    <i class='bx bx-map'></i>
-                    <span>Av. Segunda Transversal 2901, Maipú</span>
-                </div>
-                <div class="location-info-item">
-                    <i class='bx bx-time'></i>
-                    <span>Lunes a Sábado: 10:30 - 21:30</span>
-                </div>
-                <div class="location-info-item">
-                    <i class='bx bx-time-five'></i>
-                    <span>Domingo: 13:00 - 18:00</span>
-                </div>
+        <div class="location-info">
+            <div class="info-group">
+                <h3>VEN A VISITARNOS</h3>
+                <p><i class='bx bx-map'></i> Av. Segunda Transversal 2901, Maipú</p>
+                <p><i class='bx bx-time'></i> Lun - Sáb: 10:30 - 21:30</p>
+                <p><i class='bx bx-time'></i> Dom: 13:00 - 18:00</p>
             </div>
-
-            <div class="location-actions">
-                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Segunda+Transversal+2901,+Maipu" target="_blank" rel="noopener noreferrer" class="btn-location btn-location-map">
-                    <i class='bx bx-navigation'></i>
-                    CÓMO LLEGAR
-                </a>
-                <a href="https://wa.me/56991062796?text=Hola,%20quiero%20reservar%20una%20hora" target="_blank" rel="noopener noreferrer" class="btn-location btn-location-wsp">
-                    <i class='bx bxl-whatsapp'></i>
-                    RESERVAR
-                </a>
+            <div class="info-actions">
+                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Segunda+Transversal+2901,+Maipu" target="_blank" class="btn-map"><i class='bx bx-navigation'></i> ABRIR EN GOOGLE MAPS</a>
+                <a href="https://wa.me/56991062796" target="_blank" class="btn-wsp-info"><i class='bx bxl-whatsapp'></i> RESERVAR POR WHATSAPP</a>
             </div>
         </div>
     </div>
@@ -689,7 +392,7 @@
                     <h3>¿Dónde están ubicados?</h3>
                     <i class='bx bx-chevron-down'></i>
                 </div>
-                <div class="faq-answer"><p>Nos encontramos en Av. Segunda Transversal 2901, Maipú. Puedes abrir la ruta desde el botón “Cómo llegar” en la sección de ubicación.</p></div>
+                <div class="faq-answer"><p>Nos encontramos en Av. Segunda Transversal 2901, Maipú. Puedes ver el mapa interactivo en la sección de ubicación.</p></div>
             </div>
         </div>
     </div>

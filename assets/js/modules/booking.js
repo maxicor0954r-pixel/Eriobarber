@@ -1,8 +1,7 @@
-// c:\Users\User\Downloads\eriobarber\modules\booking.js
-
+// c:\Users\User\Downloads\eriobarber\assets\js\modules\booking.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getTodayString, timeToMinutes, showFeedback } from './utils.js'; // Ruta relativa actualizada
+import { getTodayString, timeToMinutes, showFeedback } from './utils.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCL4gjVqC5U7ozJubOUH0sPiMOw0ByTro",
@@ -17,6 +16,48 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const bookingsCol = collection(db, "bookings");
+
+// EmailJS - notificación por correo al recibir una reserva
+const EMAILJS_PUBLIC_KEY = "W81HytrOQRHZQ1ehG";
+const EMAILJS_SERVICE_ID = "service_uayc5qk";
+const EMAILJS_TEMPLATE_ID = "owqa7a5";
+
+function initEmailJS() {
+    if (!window.emailjs) {
+        console.warn("EmailJS no está cargado. Revisa que el script CDN esté en index.html antes de main.js.");
+        return false;
+    }
+
+    window.emailjs.init({
+        publicKey: EMAILJS_PUBLIC_KEY
+    });
+
+    return true;
+}
+
+async function sendBookingEmail(bookingData) {
+    if (!window.emailjs) {
+        throw new Error("EmailJS no está disponible en window.emailjs");
+    }
+
+    const templateParams = {
+        name: bookingData.name,
+        phone: bookingData.phone,
+        service: bookingData.service,
+        barber: bookingData.barber,
+        date: bookingData.date,
+        time: bookingData.time,
+        email: "no-reply@eriobarber.cl",
+        title: "Nueva reserva en Erio Barber"
+    };
+
+    return window.emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams
+    );
+}
+
 
 const bookingForm = document.getElementById("booking-form");
 const bookingDateInput = document.getElementById("booking-date");
@@ -40,14 +81,12 @@ async function updateAvailableTimes() {
     const isSunday = dateObj.getDay() === 0;
     const todayStr = getTodayString();
     
-    // Horarios base
     const slots = isSunday 
         ? ["13:00", "14:00", "15:00", "16:00", "17:00"]
         : ["10:30", "11:30", "12:30", "13:30", "14:30", "15:30", "16:30", "17:30", "18:30", "19:30", "20:30"];
 
     bookingTimeSelect.innerHTML = '<option value="">Selecciona una hora</option>';
 
-    // Consultar Firestore para buscar reservas de esa fecha
     const q = query(bookingsCol, where("date", "==", selectedDate));
     const querySnapshot = await getDocs(q);
     const bookedHours = [];
@@ -59,16 +98,12 @@ async function updateAvailableTimes() {
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
     slots.forEach(time => {
-        // 1. Filtrar horas pasadas si es hoy
         if (selectedDate === todayStr) {
             if (timeToMinutes(time) <= currentMinutes) return;
         }
-
-        // 2. Filtrar horas ya reservadas en Firestore
         if (bookedHours.includes(time)) {
             return;
         }
-
         const option = document.createElement("option");
         option.value = time;
         option.textContent = time;
@@ -77,15 +112,10 @@ async function updateAvailableTimes() {
 }
 
 export function initBooking() {
-    // Inicializar EmailJS con la clave pública
-    emailjs.init({
-        publicKey: "W81HytrOQRHZQ1ehG",
-    });
-
+    initEmailJS();
     setTodayAsDefaultDate();
     updateAvailableTimes();
 
-    // Validaciones de Teléfono (Chile - 9 dígitos)
     if (bookingPhoneInput) {
         bookingPhoneInput.addEventListener("input", (e) => {
             let value = e.target.value.replace(/[^0-9]/g, '').slice(0, 9);
@@ -110,7 +140,6 @@ export function initBooking() {
                 time: bookingTimeSelect.value,
             };
 
-            // Validaciones Finales
             if (!bookingData.name || !bookingData.phone || !bookingData.service || !bookingData.time) {
                 showFeedback("Por favor, completa todos los campos obligatorios.", "error");
                 return;
@@ -123,17 +152,16 @@ export function initBooking() {
             }
 
             if (bookingData.date < getTodayString()) {
-                showFeedback("Selecciona una fecha válida. Puedes reservar para hoy o para días futuros.", "error");
+                showFeedback("Selecciona una fecha válida.", "error");
                 return;
             }
 
-            // Verificar disponibilidad en tiempo real antes de guardar
             const q = query(bookingsCol, where("date", "==", bookingData.date), where("time", "==", bookingData.time));
             const checkSnapshot = await getDocs(q);
             
             if (!checkSnapshot.empty) {
-                showFeedback("Esta hora ya no está disponible. Elige otra.", "error");
-                updateAvailableTimes(); // Actualizar por si acaso otra reserva entró
+                showFeedback("Esta hora ya no está disponible.", "error");
+                updateAvailableTimes();
                 return;
             }
 
@@ -143,13 +171,18 @@ export function initBooking() {
                     createdAt: serverTimestamp()
                 });
 
-                // Enviar correo de notificación
-                sendEmailNotification(bookingData);
-
-                showFeedback("¡Reserva solicitada con éxito! Te contactaremos para confirmar.", "success");
+                try {
+                    await sendBookingEmail(bookingData);
+                    console.log("Correo de notificación enviado.");
+                    showFeedback("¡Reserva solicitada con éxito! También se envió el correo de notificación.", "success");
+                } catch (emailError) {
+                    console.error("Error EmailJS:", emailError);
+                    showFeedback("Reserva guardada, pero no se pudo enviar el correo de notificación.", "error");
+                    return;
+                }
             } catch (error) {
                 console.error("Error Firebase:", error);
-                showFeedback("Error al procesar la reserva. Intenta nuevamente.", "error");
+                showFeedback("Error al procesar la reserva.", "error");
                 return;
             }
 
@@ -157,22 +190,5 @@ export function initBooking() {
             setTodayAsDefaultDate();
             updateAvailableTimes();
         });
-    }
-}
-
-// Función para enviar correo de notificación usando EmailJS
-async function sendEmailNotification(data) {
-    try {
-        await emailjs.send("service_uayc5qk", "owqa7a5", {
-            name: data.name,
-            phone: data.phone,
-            service: data.service,
-            barber: data.barber,
-            date: data.date,
-            time: data.time
-        });
-        console.log("Correo de notificación enviado con éxito.");
-    } catch (error) {
-        console.error("Error al enviar el correo:", error);
     }
 }
