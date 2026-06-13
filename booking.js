@@ -134,13 +134,15 @@ export function initBooking() {
                 });
 
                 // Enviar notificación por correo usando EmailJS
-                await emailjs.send("service_uayc5qk", "owqa7a5", {
+                await emailjs.send("service_uayc5qk", "template_44bj455", {
                     name: bookingData.name,
                     phone: bookingData.phone,
                     service: bookingData.service,
                     barber: bookingData.barber,
                     date: bookingData.date,
-                    time: bookingData.time
+                    time: bookingData.time,
+                    email: "no-reply@eriobarber.cl",
+                    title: "Nueva reserva en Erio Barber"
                 });
 
                 showFeedback("¡Reserva solicitada con éxito!", "success");
