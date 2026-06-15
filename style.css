@@ -6,245 +6,198 @@
 
 
 /* =============================
-   FIX UBICACIÓN PREMIUM
-   Reemplaza el iframe gigante por una card moderna.
+   UBICACIÓN - TARJETA MODERNA
    ============================= */
 
-.ubicacion-premium {
-    position: relative;
-    padding: 110px 20px;
-    overflow: hidden;
+.location-section {
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--dark);
 }
 
-.ubicacion-premium::before {
-    content: "";
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    right: -160px;
-    top: 120px;
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.18), transparent 68%);
-    pointer-events: none;
+.location-map-card {
+  width: 100%;
+  max-width: 900px;
+  background: #080808;
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  margin: 0 auto;
 }
 
-.ubicacion-premium .section-title {
-    text-align: center;
-    margin-bottom: 42px;
+.location-map-card iframe {
+  width: 100%;
+  height: 380px;
+  display: block;
+  border: 0;
 }
 
-.ubicacion-premium .section-title p {
-    color: rgba(255, 255, 255, 0.68);
-    margin-top: 10px;
+.location-info {
+  padding: 30px;
+  color: white;
+  text-align: left;
 }
 
-.location-premium-card {
-    width: min(1080px, 94%);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 26px;
-    padding: 22px;
-    border-radius: 30px;
-    background:
-        linear-gradient(145deg, rgba(28, 28, 28, 0.96), rgba(7, 7, 7, 0.98)),
-        radial-gradient(circle at top left, rgba(255, 0, 0, 0.18), transparent 42%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 35px 95px rgba(0, 0, 0, 0.62);
+.location-info h3 {
+  margin-bottom: 15px;
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8rem;
+  text-transform: uppercase;
 }
 
-.location-visual-card {
-    position: relative;
-    min-height: 420px;
-    border-radius: 24px;
-    overflow: hidden;
-    background: #111;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+.location-info p {
+  color: #ccc;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
 }
 
-.location-photo {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    transform: scale(1.02);
-    filter: saturate(0.95) contrast(1.08) brightness(0.76);
-}
-
-.location-photo-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.72)),
-        radial-gradient(circle at 20% 20%, rgba(255, 0, 0, 0.20), transparent 36%);
-}
-
-.location-pin-card {
-    position: absolute;
-    left: 22px;
-    right: 22px;
-    bottom: 22px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px;
-    border-radius: 18px;
-    background: rgba(10, 10, 10, 0.76);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-
-.location-pin-card i {
-    width: 48px;
-    height: 48px;
-    display: grid;
-    place-items: center;
-    flex: 0 0 48px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #ff0000, #990000);
-    color: #fff;
-    font-size: 26px;
-    box-shadow: 0 12px 30px rgba(255, 0, 0, 0.24);
-}
-
-.location-pin-card strong {
-    display: block;
-    color: #fff;
-    font-size: 0.95rem;
-    letter-spacing: 0.08em;
-}
-
-.location-pin-card span {
-    display: block;
-    margin-top: 4px;
-    color: rgba(255, 255, 255, 0.70);
-    font-size: 0.88rem;
-}
-
-.location-details-card {
-    padding: 34px;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.location-badge {
-    width: fit-content;
-    padding: 8px 12px;
-    border-radius: 999px;
-    background: rgba(255, 0, 0, 0.12);
-    color: #ff3b3b;
-    border: 1px solid rgba(255, 0, 0, 0.22);
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-}
-
-.location-details-card h3 {
-    margin: 18px 0 12px;
-    color: #fff;
-    font-size: clamp(1.8rem, 3vw, 2.65rem);
-    line-height: 1.05;
-    text-transform: uppercase;
-}
-
-.location-description {
-    color: rgba(255, 255, 255, 0.66);
-    line-height: 1.75;
-    margin-bottom: 24px;
-}
-
-.location-info-list {
-    display: grid;
-    gap: 13px;
-    margin-bottom: 28px;
-}
-
-.location-info-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 14px;
-    border-radius: 16px;
-    background: rgba(0, 0, 0, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    color: rgba(255, 255, 255, 0.86);
-}
-
-.location-info-item i {
-    color: #ff2525;
-    font-size: 22px;
+.location-info p i {
+  color: var(--primary);
+  font-size: 1.2rem;
 }
 
 .location-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
-.btn-location {
-    min-height: 52px;
-    display: inline-flex;
+@media (max-width: 768px) {
+  .location-section {
+    padding: 60px 16px;
+  }
+
+  .location-map-card {
+    border-radius: 18px;
+    width: 100%;
+  }
+
+  .location-map-card iframe {
+    height: 280px;
+  }
+
+  .location-info {
+    padding: 20px;
+  }
+}
+
+/* =============================
+   MODERN BOOKING & CALENDAR (SHADCN STYLE)
+   ============================= */
+
+.reserva-premium {
+    padding: 100px 20px;
+    background: radial-gradient(circle at top, rgba(153, 0, 0, 0.05), transparent);
+}
+
+.booking-card-modern {
+    width: min(1000px, 100%);
+    margin: 0 auto;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    overflow: hidden;
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 900px) {
+    .booking-card-modern { grid-template-columns: 1fr; }
+}
+
+/* Calendario Integrado */
+.calendar-section {
+    padding: 40px;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.calendar-header h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: 0.2s;
+}
+
+.nav-btn:hover { background: var(--primary); border-color: var(--primary); }
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+.day-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 9px;
-    padding: 14px 16px;
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid transparent;
 }
 
-.btn-location:hover {
-    transform: translateY(-2px);
+.calendar-day:hover:not(.empty):not(.disabled) {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
-.btn-location-map {
-    background: linear-gradient(135deg, #ff0000, #990000);
-    color: #fff;
-    box-shadow: 0 15px 35px rgba(255, 0, 0, 0.22);
+.calendar-day.selected {
+    background: var(--primary) !important;
+    color: white !important;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(153, 0, 0, 0.4);
 }
 
-.btn-location-wsp {
-    background: rgba(255, 255, 255, 0.07);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.10);
+.calendar-day.disabled {
+    opacity: 0.15;
+    cursor: not-allowed;
 }
 
-.btn-location-wsp:hover {
-    background: rgba(37, 211, 102, 0.16);
-    border-color: rgba(37, 211, 102, 0.34);
-}
-
-@media (max-width: 860px) {
-    .ubicacion-premium {
-        padding: 80px 14px;
-    }
-
-    .location-premium-card {
-        width: min(520px, 96%);
-        grid-template-columns: 1fr;
-        padding: 14px;
-        border-radius: 24px;
-    }
-
-    .location-visual-card {
-        min-height: 280px;
-        border-radius: 20px;
-    }
-
-    .location-details-card {
-        padding: 24px 18px;
-        border-radius: 20px;
-    }
-
-    .location-actions {
-        grid-template-columns: 1fr;
-    }
+/* Detalles de Reserva */
+.booking-details-section {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.01);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 @media (max-width: 420px) {

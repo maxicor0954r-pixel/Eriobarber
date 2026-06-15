@@ -18,24 +18,79 @@ const db = getFirestore(app);
 const bookingsCol = collection(db, "bookings");
 
 const bookingForm = document.getElementById("booking-form");
-const bookingDateInput = document.getElementById("booking-date");
+const bookingDateDisplay = document.getElementById("booking-date-display");
 const bookingTimeSelect = document.getElementById("booking-time");
 const bookingPhoneInput = document.getElementById("booking-phone");
+const calendarGrid = document.getElementById("calendar-grid");
+const currentMonthText = document.getElementById("current-month-text");
 
-function setTodayAsDefaultDate() {
-    if (!bookingDateInput) return;
-    const today = getTodayString();
-    bookingDateInput.value = today;
-    bookingDateInput.min = today;
+let selectedDate = getTodayString();
+let viewDate = new Date(); // Para navegar meses
+
+function renderCalendar() {
+    if (!calendarGrid) return;
+    calendarGrid.innerHTML = "";
+    
+    const month = viewDate.getMonth();
+    const year = viewDate.getFullYear();
+    
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    // Nombres meses en español
+    const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    currentMonthText.textContent = `${monthNames[month]} ${year}`;
+
+    // Ajuste para que lunes sea primer día (0=Dom -> 6=Sab)
+    const offset = firstDay === 0 ? 6 : firstDay - 1;
+
+    // Días semana labels
+    const labels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+    labels.forEach(l => {
+        const el = document.createElement("div");
+        el.className = "day-label";
+        el.textContent = l;
+        calendarGrid.appendChild(el);
+    });
+
+    // Espacios vacíos
+    for (let i = 0; i < offset; i++) {
+        const empty = document.createElement("div");
+        empty.className = "calendar-day empty";
+        calendarGrid.appendChild(empty);
+    }
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        
+        const dayEl = document.createElement("div");
+        dayEl.className = "calendar-day";
+        dayEl.textContent = d;
+
+        if (date < today) {
+            dayEl.classList.add("disabled");
+        } else {
+            if (dateStr === selectedDate) dayEl.classList.add("selected");
+            dayEl.onclick = () => {
+                selectedDate = dateStr;
+                bookingDateDisplay.textContent = date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+                renderCalendar();
+                updateAvailableTimes();
+            };
+        }
+        calendarGrid.appendChild(dayEl);
+    }
 }
 
-async function updateAvailableTimes() {
-    if (!bookingTimeSelect || !bookingDateInput) return;
-    
-    const selectedDate = bookingDateInput.value;
-    if (!selectedDate) return;
 
-    const dateObj = new Date(selectedDate + "T00:00:00");
+async function updateAvailableTimes() {
+    if (!bookingTimeSelect) return;
+
+    const dateObj = new Date(selectedDate + "T12:00:00");
     const isSunday = dateObj.getDay() === 0;
     const todayStr = getTodayString();
     
@@ -75,18 +130,24 @@ export function initBooking() {
         publicKey: "W81HytrOQRHZQ1ehG",
     });
 
-    setTodayAsDefaultDate();
+    renderCalendar();
     updateAvailableTimes();
+
+    // Navegación calendario
+    document.getElementById("prev-month")?.addEventListener("click", () => {
+        viewDate.setMonth(viewDate.getMonth() - 1);
+        renderCalendar();
+    });
+    document.getElementById("next-month")?.addEventListener("click", () => {
+        viewDate.setMonth(viewDate.getMonth() + 1);
+        renderCalendar();
+    });
 
     if (bookingPhoneInput) {
         bookingPhoneInput.addEventListener("input", (e) => {
             let value = e.target.value.replace(/[^0-9]/g, '').slice(0, 9);
             bookingPhoneInput.value = value;
         });
-    }
-
-    if (bookingDateInput) {
-        bookingDateInput.addEventListener("change", updateAvailableTimes);
     }
 
     if (bookingForm) {
@@ -98,7 +159,7 @@ export function initBooking() {
                 phone: document.getElementById("booking-phone").value,
                 service: document.getElementById("booking-service").value,
                 barber: document.getElementById("booking-barber").value,
-                date: bookingDateInput.value,
+                date: selectedDate,
                 time: bookingTimeSelect.value,
             };
 
@@ -153,7 +214,9 @@ export function initBooking() {
             }
 
             bookingForm.reset();
-            setTodayAsDefaultDate();
+            selectedDate = getTodayString();
+            viewDate = new Date();
+            renderCalendar();
             updateAvailableTimes();
         });
     }
