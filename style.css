@@ -1,8 +1,8 @@
-/* El contenido íntegro de tu style.css va aquí */
 :root{
     --primary: #990000;
     --accent: #ff0000;
-/* ... resto del archivo ... */
+    --dark: #0a0a0a;
+}
 
 
 /* =============================
